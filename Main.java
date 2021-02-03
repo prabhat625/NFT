@@ -119,11 +119,12 @@ class Solution implements Runnable {
     }
 
     public void perceptron(){
+        double zero = 0.000000000000001d;
         double[][] input=new double[4][3];
-        input[0][0]=0;input[0][1]=0;
-        input[1][0]=0;input[1][1]=1;
-        input[2][0]=1;input[2][1]=0;
-        input[3][0]=1;input[3][1]=1;
+        input[0][0]=0.0d;input[0][1]=0.0d;
+        input[1][0]=0.0d;input[1][1]=1.0d;
+        input[2][0]=1.0d;input[2][1]=0.0d;
+        input[3][0]=1.0d;input[3][1]=1.0d;
         for(int i=0;i<4;i++){
             System.out.println("Desired Output for "+input[i][0]+" "+input[i][1]);
             input[i][2]=sc.nd();
@@ -139,9 +140,9 @@ class Solution implements Runnable {
             change = false;
             for(int i=0;i<4;i++){
                 double sum=w0+w1*input[i][0]+w2*input[i][1];
-                double output = sum > 0 ? 1:0;
+                double output = sum > zero ? 1.0d:0.0d;
                 double diff = input[i][2]-output;
-                if(diff!=0d){
+                if(Math.abs(diff)>zero){
                     change = true;
                     w0+=(r*diff);
                     w1+=(diff*r*input[i][0]);
@@ -154,6 +155,7 @@ class Solution implements Runnable {
     }
 
     public void Madaline() {
+    double zero = 0.000000000000001d;
     DecimalFormat df2 = new DecimalFormat("#.##");
     double[][] input = new double[4][3];
     input[0][0]=1d;input[0][1]=1d;
@@ -194,8 +196,8 @@ class Solution implements Runnable {
         for(int i=0;i<4;i++){
             double sum1=b1+input[i][0]*w11+input[i][1]*w21;
             double sum2=b2+input[i][0]*w12+input[i][1]*w22;
-            double h1=sum1>=0d?1d:-1d;
-            double h2=sum2>=0d?1d:-1d;
+            double h1=sum1>=zero?1d:-1d;
+            double h2=sum2>=zero?1d:-1d;
             double sum=b3+h1*z1+h2*z2;
             double output= sum>=0?1d:-1d;
             if(output!=input[i][2]){
