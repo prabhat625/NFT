@@ -114,9 +114,46 @@ class Solution implements Runnable {
     ////////////////////////////////
     public void solve() throws Exception{
         sc.next();
-        Madaline();
+       // Madaline();
+        perceptron();
     }
-    public void Madaline(){
+
+    public void perceptron(){
+        double[][] input=new double[4][3];
+        input[0][0]=0;input[0][1]=0;
+        input[1][0]=0;input[1][1]=1;
+        input[2][0]=1;input[2][1]=0;
+        input[3][0]=1;input[3][1]=1;
+        for(int i=0;i<4;i++){
+            System.out.println("Desired Output for "+input[i][0]+" "+input[i][1]);
+            input[i][2]=sc.nd();
+        }
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        System.out.println("Learning Rate ?");
+        double r=sc.nd();
+        System.out.println("w0  w1  w2");
+        double w0=sc.nd(),w1=sc.nd(),w2=sc.nd();
+        boolean change = true;
+        System.out.println("x1   x2   Desired    sum    output   diff   w0   w1   w2");
+        while(change){
+            change = false;
+            for(int i=0;i<4;i++){
+                double sum=w0+w1*input[i][0]+w2*input[i][1];
+                double output = sum > 0 ? 1:0;
+                double diff = input[i][2]-output;
+                if(diff!=0d){
+                    change = true;
+                    w0+=(r*diff);
+                    w1+=(diff*r*input[i][0]);
+                    w2+=(diff*r*input[i][1]);
+                }
+                System.out.println(df2.format(input[i][0])+"   "+df2.format(input[i][1])+"   "+df2.format(input[i][2])+"   "+df2.format(sum)+"   "+df2.format(output)+"   "+df2.format(diff)+"   "+df2.format(w0)+"   "+df2.format(w1)+"   "+df2.format(w2));
+            }
+            System.out.println(" ------------------ ");
+        }
+    }
+
+    public void Madaline() {
     DecimalFormat df2 = new DecimalFormat("#.##");
     double[][] input = new double[4][3];
     input[0][0]=1d;input[0][1]=1d;
